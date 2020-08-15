@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<!-- saved from url=(0061)https://editor.p5js.org/gurleendhillonm1114/present/ZZngdJvDt -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script src="./SnakeGameeee_files/p5.js.download"></script>
+    <script src="./SnakeGameeee_files/p5.sound.min.js.download"></script>
+
+
+
+  <!--<base href="https://editor.p5js.org/gurleendhillonm1114/present/ZZngdJvDt/">--><base href="."><style>
+html, body {
+  margin: 0;
+  padding: 0;
+}
+canvas {
+  display: block;
+}
+</style></head>
+  <body>
+    <script>var noOfBlocks=20
+var blockSize=20
+var headX=0
+var headY=0
+var speedX=0
+var speedY=0
+var tailLength=3
+var tailBlocks=[]
+var appleX=0
+var appleY=0
+var score=0
+var hiscore=0
+function setup() {
+  createCanvas(400, 400);
+  frameRate(10)
+  headX=noOfBlocks/2
+  headY=noOfBlocks/2
+  appleX=floor(random(0,noOfBlocks))
+  appleY=floor(random(0,noOfBlocks))
+}
+
+function draw() {
+  background(0);
+  if(speedX!=0 || speedY!=0){
+     tailBlocks.push({x:headX,y:headY})
+     while(tailBlocks.length>tailLength){
+     tailBlocks.shift()
+     }
+    for(let i=0; i<tailBlocks.length; i++){
+    if(headX+speedX==tailBlocks[i].x && headY+speedY==tailBlocks[i].y){
+     headX=noOfBlocks/2
+     headY=noOfBlocks/2
+
+      speedX=0
+      speedY=0
+
+      tailLength=3
+      tailBlocks=[]
+
+      appleX=floor(random(0,noOfBlocks))
+      appleY=floor(random(0,noOfBlocks))
+      if(score>hiscore){
+      hiscore=score
+      }
+      score=0
+    }
+    }
+  }
+  for(let i=0; i<tailBlocks.length; i++){
+  rect(tailBlocks[i].x*blockSize,tailBlocks[i].y*blockSize,blockSize,blockSize)
+  }
+  headX=headX+speedX
+  headY=headY+speedY
+  if(headX<0){
+  headX=noOfBlocks-1
+  }
+  if(headX>noOfBlocks-1){
+  headX=0
+  }
+  if(headY<0){
+  headY=noOfBlocks-1
+  }
+  if(headY>noOfBlocks-1){
+  headY=0
+  }
+  if(headX==appleX && headY==appleY){
+  appleX=floor(random(0,noOfBlocks))
+  appleY=floor(random(0,noOfBlocks))
+    tailLength++
+    score++
+  }
+  fill(255,0,0)
+  rect(appleX*blockSize,appleY*blockSize,blockSize,blockSize)
+  fill(255)
+  rect(headX*blockSize,headY*blockSize,blockSize,blockSize)
+  fill(255)
+  textSize(20)
+  text('score:'+score,10,30)
+  text('hiscore:'+hiscore,10,50)
+}
+function keyPressed(){
+  if(key=='w'){
+    speedX=0
+    speedY=-1
+  }
+  else if(key=='a'){
+  speedX=-1
+    speedY=0
+  }
+  else if(key=='s'){
+  speedX=0
+    speedY=1
+  }
+  else if(key=='d'){
+  speedX=1
+    speedY=0
+  }
+}</script>
+
+
+<canvas id="defaultCanvas0" class="p5Canvas" width="800" height="800" style="width: 400px; height: 400px;"></canvas></body></html>
